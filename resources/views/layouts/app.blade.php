@@ -54,7 +54,6 @@
                     <a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('about') ? 'text-blue-600 bg-blue-50' : '' }}">Tentang</a>
                     <a href="{{ route('programs') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('programs') ? 'text-blue-600 bg-blue-50' : '' }}">Program Studi</a>
                     <a href="{{ route('academic') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('academic') ? 'text-blue-600 bg-blue-50' : '' }}">Akademik</a>
-                    <a href="{{ route('research') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('research') ? 'text-blue-600 bg-blue-50' : '' }}">Penelitian</a>
                     <a href="{{ route('news') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('news') ? 'text-blue-600 bg-blue-50' : '' }}">Berita</a>
                     <a href="{{ route('services') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('services') ? 'text-blue-600 bg-blue-50' : '' }}">Layanan</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('contact') ? 'text-blue-600 bg-blue-50' : '' }}">Kontak</a>
@@ -78,7 +77,6 @@
                 <a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('about') ? 'text-blue-600 bg-blue-50' : '' }}">Tentang</a>
                 <a href="{{ route('programs') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('programs') ? 'text-blue-600 bg-blue-50' : '' }}">Program Studi</a>
                 <a href="{{ route('academic') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('academic') ? 'text-blue-600 bg-blue-50' : '' }}">Akademik</a>
-                <a href="{{ route('research') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('research') ? 'text-blue-600 bg-blue-50' : '' }}">Penelitian</a>
                 <a href="{{ route('news') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('news') ? 'text-blue-600 bg-blue-50' : '' }}">Berita</a>
                 <a href="{{ route('services') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('services') ? 'text-blue-600 bg-blue-50' : '' }}">Layanan</a>
                 <a href="{{ route('contact') }}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('contact') ? 'text-blue-600 bg-blue-50' : '' }}">Kontak</a>

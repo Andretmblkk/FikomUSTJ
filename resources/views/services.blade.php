@@ -5,10 +5,20 @@
 
 @section('content')
 <!-- Menggunakan Hero Section dari Tailwind -->
-<section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Layanan Akademik</h1>
-        <p class="text-xl">Layanan Online untuk Mahasiswa dan Alumni FIKOM</p>
+<section class="relative h-96 md:h-[500px] overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/5.jpg') }}" alt="Layanan Akademik FIKOM USTJ" class="w-full h-full object-cover">
+    </div>
+    <div class="relative z-10 h-full flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center text-white">
+                <div class="bg-black bg-opacity-30 rounded-lg p-8">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Layanan Akademik</h1>
+                    <p class="text-xl md:text-2xl">Layanan Online untuk Mahasiswa dan Alumni FIKOM</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -59,15 +69,15 @@
 <!-- Menggunakan Grid Layout dan Card dari Tailwind -->
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8">📌 Kartu & Transkrip Akademik</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">📌 Layanan KRS dan KHS</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div class="bg-white border rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                 <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <span class="text-blue-600 text-xl">🎫</span>
                 </div>
                 <h3 class="text-lg font-bold text-gray-900 mb-2">Kartu Rencana Studi (KRS)</h3>
-                <p class="text-gray-600 mb-4">Kartu rencana studi untuk semester berjalan</p>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Download →</a>
+                <p class="text-gray-600 mb-4">Kartu rencana studi untuk semester berjalan dapat diakses melalui Siakad</p>
+                <a href="https://siakad.ustj.ac.id/gate/login" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Akses Siakad →</a>
             </div>
             
             <div class="bg-white border rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -75,26 +85,20 @@
                     <span class="text-green-600 text-xl">📊</span>
                 </div>
                 <h3 class="text-lg font-bold text-gray-900 mb-2">Kartu Hasil Studi (KHS)</h3>
-                <p class="text-gray-600 mb-4">Kartu hasil studi untuk semester yang telah selesai</p>
-                <a href="#" class="text-green-600 hover:text-green-800 font-medium">Download →</a>
+                <p class="text-gray-600 mb-4">Kartu hasil studi untuk semester yang telah selesai dapat diakses melalui Siakad</p>
+                <a href="https://siakad.ustj.ac.id/gate/login" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition">Akses Siakad →</a>
             </div>
-            
+        </div>
+        
+        <div class="mt-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">📌 Layanan Praktikum</h2>
             <div class="bg-white border rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                 <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-purple-600 text-xl">📋</span>
+                    <span class="text-purple-600 text-xl">🧪</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Transkrip Nilai Sementara</h3>
-                <p class="text-gray-600 mb-4">Transkrip nilai sementara untuk keperluan akademik</p>
-                <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">Download →</a>
-            </div>
-            
-            <div class="bg-white border rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-yellow-600 text-xl">✅</span>
-                </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Legalisasi Ijazah & Transkrip</h3>
-                <p class="text-gray-600 mb-4">Legalisasi ijazah dan transkrip untuk keperluan resmi</p>
-                <a href="#" class="text-yellow-600 hover:text-yellow-800 font-medium">Ajukan Sekarang →</a>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Sistem Informasi Laboratorium</h3>
+                <p class="text-gray-600 mb-4">Pendaftaran dan pengurusan praktikum dapat dilakukan melalui Sistem Informasi Laboratorium FIKOM USTJ</p>
+                <a href="https://silab-fikomustj.com/login.php" target="_blank" rel="noopener noreferrer" class="inline-block bg-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-purple-700 transition">Akses SILAB →</a>
             </div>
         </div>
     </div>

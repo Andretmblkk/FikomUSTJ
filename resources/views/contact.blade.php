@@ -5,10 +5,20 @@
 
 @section('content')
 <!-- Menggunakan Hero Section dari Tailwind -->
-<section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Kontak Kami</h1>
-        <p class="text-xl">Hubungi FIKOM untuk Informasi Lebih Lanjut</p>
+<section class="relative h-96 md:h-[500px] overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/1.jpg') }}" alt="Kontak FIKOM USTJ" class="w-full h-full object-cover">
+    </div>
+    <div class="relative z-10 h-full flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center text-white">
+                <div class="bg-black bg-opacity-30 rounded-lg p-8">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Kontak Kami</h1>
+                    <p class="text-xl md:text-2xl">Hubungi FIKOM untuk Informasi Lebih Lanjut</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -22,11 +22,6 @@ Route::get('/academic', function () {
     return view('academic');
 })->name('academic');
 
-// Research page
-Route::get('/research', function () {
-    return view('research');
-})->name('research');
-
 // News page
 Route::get('/news', function () {
     return view('news');
