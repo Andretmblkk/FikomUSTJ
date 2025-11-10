@@ -63,38 +63,31 @@ Ini akan membuat link dari `public/storage` ke `storage/app/public`.
 
 ---
 
-### 5. **Buat User Admin Baru**
+### 5. **Jalankan Seeder untuk User Admin dan Data Contoh**
 
-Admin panel membutuhkan user untuk login. Buat user admin dengan cara:
-
-**Opsi A: Menggunakan Tinker (Disarankan)**
+Jalankan seeder untuk membuat user admin dan beberapa berita contoh dengan gambar:
 
 ```bash
-php artisan tinker
+php artisan db:seed
 ```
 
-Kemudian jalankan perintah ini di tinker:
-
-```php
-App\Models\User::create([
-    'name' => 'Admin FIKOM',
-    'email' => 'admin@fikom.ustj.ac.id',
-    'password' => bcrypt('password')
-]);
-```
-
-Ganti:
-- `'name'` dengan nama admin Anda
-- `'email'` dengan email admin Anda
-- `'password'` dengan password yang diinginkan (atau gunakan `bcrypt('password')` untuk password "password")
-
-Setelah selesai, ketik `exit` untuk keluar dari tinker.
-
-**Opsi B: Menggunakan Seeder (Jika Ada)**
+Atau jika ingin menjalankan seeder tertentu saja:
 
 ```bash
-php artisan db:seed --class=AdminUserSeeder
+# Hanya user admin
+php artisan db:seed --class=UserSeeder
+
+# Hanya berita contoh
+php artisan db:seed --class=NewsSeeder
 ```
+
+**Seeder akan membuat:**
+- ✅ User admin dengan kredensial:
+  - **Email:** `admin@fikom.ustj.ac.id`
+  - **Password:** `password`
+- ✅ 8 berita contoh (berita, event, pengumuman) dengan gambar dari folder `images`
+
+**Catatan:** Seeder akan otomatis copy gambar dari `public/images/` ke `storage/app/public/news/` dan membuat berita dengan gambar tersebut.
 
 ---
 
@@ -132,8 +125,10 @@ http://fikom-website.test/admin
 ```
 
 Login dengan:
-- **Email:** Email yang Anda buat di langkah 5
-- **Password:** Password yang Anda set di langkah 5
+- **Email:** `admin@fikom.ustj.ac.id`
+- **Password:** `password`
+
+**Catatan:** Setelah login pertama kali, segera ubah password untuk keamanan!
 
 ---
 
@@ -145,7 +140,7 @@ Pastikan semua langkah sudah dilakukan:
 - [ ] `composer install` - Install dependencies Filament
 - [ ] `php artisan migrate` - Buat tabel database baru
 - [ ] `php artisan storage:link` - Buat symbolic link storage
-- [ ] Buat user admin baru (via tinker)
+- [ ] `php artisan db:seed` - Buat user admin dan data contoh
 - [ ] `php artisan optimize:clear` - Clear cache
 - [ ] Bisa akses `/admin` dan login berhasil
 
@@ -162,6 +157,7 @@ git pull origin main
 composer install
 php artisan migrate
 php artisan storage:link
+php artisan db:seed
 php artisan optimize:clear
 ```
 
@@ -172,10 +168,13 @@ git pull origin main
 composer install
 php artisan migrate
 php artisan storage:link
+php artisan db:seed
 php artisan optimize:clear
 ```
 
-Setelah itu, buat user admin dengan tinker (langkah 5 di atas).
+Setelah itu, login ke admin panel dengan:
+- **Email:** `admin@fikom.ustj.ac.id`
+- **Password:** `password`
 
 ---
 
@@ -204,9 +203,9 @@ php artisan key:generate
 
 ### Tidak bisa login
 **Solusi:** 
-1. Pastikan user sudah dibuat di database
-2. Cek email dan password yang digunakan
-3. Pastikan password di-hash dengan `bcrypt()`
+1. Pastikan seeder sudah dijalankan: `php artisan db:seed`
+2. Cek email dan password yang digunakan (default: `admin@fikom.ustj.ac.id` / `password`)
+3. Jika user belum ada, jalankan: `php artisan db:seed --class=UserSeeder`
 
 ---
 
