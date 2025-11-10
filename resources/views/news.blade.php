@@ -26,10 +26,10 @@
 <section class="py-8 bg-white border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap gap-4">
-            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium">Semua</button>
-            <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300">Berita</button>
-            <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300">Event</button>
-            <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300">Pengumuman</button>
+            <a href="{{ route('news', ['category' => 'semua']) }}" class="px-6 py-2 {{ (!$category || $category == 'semua') ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }} rounded-lg font-medium">Semua</a>
+            <a href="{{ route('news', ['category' => 'berita']) }}" class="px-6 py-2 {{ $category == 'berita' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }} rounded-lg font-medium">Berita</a>
+            <a href="{{ route('news', ['category' => 'event']) }}" class="px-6 py-2 {{ $category == 'event' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }} rounded-lg font-medium">Event</a>
+            <a href="{{ route('news', ['category' => 'pengumuman']) }}" class="px-6 py-2 {{ $category == 'pengumuman' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }} rounded-lg font-medium">Pengumuman</a>
         </div>
     </div>
 </section>
@@ -38,56 +38,40 @@
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Berita Kampus</h2>
+        @if($news->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($news as $item)
             <article class="bg-white border rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div class="h-48 overflow-hidden">
-                    <img src="{{ asset('images/ujian.jpg') }}" alt="Pendaftaran Mahasiswa Baru FIKOM USTJ" class="w-full h-full object-cover">
+                    @if($item->image)
+                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='{{ asset('images/seminar.jpg') }}';">
+                    @else
+                        <img src="{{ asset('images/seminar.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                    @endif
                 </div>
                 <div class="p-6">
                     <div class="flex items-center mb-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Berita</span>
-                        <span class="text-sm text-gray-500 ml-2">15 Januari 2024</span>
+                        @if($item->category == 'berita')
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded capitalize">Berita</span>
+                        @elseif($item->category == 'event')
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded capitalize">Event</span>
+                        @else
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded capitalize">Pengumuman</span>
+                        @endif
+                        <span class="text-sm text-gray-500 ml-2">{{ $item->published_at ? $item->published_at->format('d F Y') : $item->created_at->format('d F Y') }}</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Pendaftaran Mahasiswa Baru 2024 Dibuka</h3>
-                    <p class="text-gray-600 mb-4">Pendaftaran mahasiswa baru untuk tahun akademik 2024/2025 telah dibuka. Segera daftarkan diri Anda untuk bergabung dengan FIKOM!</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $item->title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ Str::limit(strip_tags($item->content), 120) }}</p>
                     <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Baca Selengkapnya →</a>
                 </div>
             </article>
-            
-            <article class="bg-white border rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                <div class="h-48 overflow-hidden">
-                    <img src="{{ asset('images/wisuda.jpg') }}" alt="Mahasiswa FIKOM Raih Juara Programming" class="w-full h-full object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Berita</span>
-                        <span class="text-sm text-gray-500 ml-2">12 Januari 2024</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mahasiswa FIKOM Raih Juara 1 Lomba Programming</h3>
-                    <p class="text-gray-600 mb-4">Tim mahasiswa FIKOM berhasil meraih juara 1 dalam kompetisi programming nasional yang diselenggarakan di Jakarta.</p>
-                    <a href="#" class="text-green-600 hover:text-green-800 font-medium">Baca Selengkapnya →</a>
-                </div>
-            </article>
-            
-            <article class="bg-white border rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                <div class="h-48 overflow-hidden">
-                    <img src="{{ asset('images/seminar.jpg') }}" alt="Seminar Teknologi Informasi FIKOM USTJ" class="w-full h-full object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Berita</span>
-                        <span class="text-sm text-gray-500 ml-2">10 Januari 2024</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">FIKOM Terima Akreditasi A</h3>
-                    <p class="text-gray-600 mb-4">Fakultas Ilmu Komunikasi berhasil mendapatkan akreditasi A dari BAN-PT untuk kedua program studinya.</p>
-                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">Baca Selengkapnya →</a>
-                </div>
-            </article>
+            @endforeach
         </div>
-        
-        <div class="mt-8 text-center">
-            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Lihat Semua Berita →</a>
+        @else
+        <div class="text-center py-12">
+            <p class="text-gray-500 text-lg">Belum ada berita yang dipublikasikan.</p>
         </div>
+        @endif
     </div>
 </section>
 
@@ -95,53 +79,40 @@
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Event & Seminar</h2>
+        @if($events->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @foreach($events as $event)
             <div class="bg-white border rounded-lg shadow-md overflow-hidden">
                 <div class="h-48 overflow-hidden">
-                    <img src="{{ asset('images/seminar.jpg') }}" alt="Seminar Nasional Teknologi Informasi FIKOM USTJ" class="w-full h-full object-cover">
+                    @if($event->image)
+                        <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='{{ asset('images/seminar.jpg') }}';">
+                    @else
+                        <img src="{{ asset('images/seminar.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                    @endif
                 </div>
                 <div class="p-6">
                     <div class="flex items-center mb-2">
                         <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Event</span>
-                        <span class="text-sm text-gray-500 ml-2">20 Februari 2024</span>
+                        <span class="text-sm text-gray-500 ml-2">{{ $event->published_at ? $event->published_at->format('d F Y') : $event->created_at->format('d F Y') }}</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Seminar Nasional Teknologi Informasi 2024</h3>
-                    <p class="text-gray-600 mb-4">Seminar nasional tentang perkembangan teknologi informasi terkini dengan pembicara dari berbagai universitas dan industri.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $event->title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ Str::limit(strip_tags($event->content), 120) }}</p>
                     <div class="flex items-center justify-between">
                         <div class="text-sm text-gray-500">
-                            <p>📍 Auditorium FIKOM</p>
-                            <p>🕐 08:00 - 17:00 WIB</p>
+                            <p>📍 FIKOM USTJ</p>
+                            <p>🕐 {{ $event->published_at ? $event->published_at->format('H:i') : 'TBA' }} WIB</p>
                         </div>
                         <a href="#" class="text-yellow-600 hover:text-yellow-800 font-medium">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
-            
-            <div class="bg-white border rounded-lg shadow-md overflow-hidden">
-                <div class="h-48 overflow-hidden">
-                    <img src="{{ asset('images/yudisium.jpeg') }}" alt="Workshop Programming FIKOM USTJ" class="w-full h-full object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Event</span>
-                        <span class="text-sm text-gray-500 ml-2">25 Februari 2024</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Workshop Machine Learning</h3>
-                    <p class="text-gray-600 mb-4">Workshop hands-on tentang machine learning untuk pemula dengan praktik langsung menggunakan Python dan TensorFlow.</p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-sm text-gray-500">
-                            <p>📍 Lab Komputer FIKOM</p>
-                            <p>🕐 09:00 - 16:00 WIB</p>
-                        </div>
-                        <a href="#" class="text-red-600 hover:text-red-800 font-medium">Daftar Sekarang</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-        
-        <div class="mt-8 text-center">
-            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Lihat Semua Event →</a>
+        @else
+        <div class="text-center py-12">
+            <p class="text-gray-500 text-lg">Belum ada event yang dipublikasikan.</p>
         </div>
+        @endif
     </div>
 </section>
 
@@ -149,47 +120,56 @@
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Pengumuman Resmi</h2>
+        @if($announcements->count() > 0)
         <div class="space-y-6">
+            @foreach($announcements as $announcement)
+            @php
+                $mod = $loop->iteration % 4;
+            @endphp
+            @if($mod == 1)
             <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
                 <div class="flex items-center mb-2">
-                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Penting</span>
-                    <span class="text-sm text-gray-500 ml-2">18 Januari 2024</span>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Pengumuman</span>
+                    <span class="text-sm text-gray-500 ml-2">{{ $announcement->published_at ? $announcement->published_at->format('d F Y') : $announcement->created_at->format('d F Y') }}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Perubahan Jadwal Ujian Tengah Semester</h3>
-                <p class="text-gray-700">Diberitahukan kepada seluruh mahasiswa bahwa jadwal ujian tengah semester akan diubah dari tanggal 21-25 Oktober menjadi 28 Oktober - 1 November 2024.</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $announcement->title }}</h3>
+                <p class="text-gray-700">{{ Str::limit(strip_tags($announcement->content), 200) }}</p>
             </div>
-            
+            @elseif($mod == 2)
             <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
                 <div class="flex items-center mb-2">
-                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Informasi</span>
-                    <span class="text-sm text-gray-500 ml-2">16 Januari 2024</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Pengumuman</span>
+                    <span class="text-sm text-gray-500 ml-2">{{ $announcement->published_at ? $announcement->published_at->format('d F Y') : $announcement->created_at->format('d F Y') }}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Pembukaan Pendaftaran Beasiswa 2024</h3>
-                <p class="text-gray-700">Pendaftaran beasiswa untuk mahasiswa berprestasi dan kurang mampu telah dibuka. Silakan ajukan aplikasi melalui portal akademik.</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $announcement->title }}</h3>
+                <p class="text-gray-700">{{ Str::limit(strip_tags($announcement->content), 200) }}</p>
             </div>
-            
+            @elseif($mod == 3)
             <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-lg">
                 <div class="flex items-center mb-2">
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Update</span>
-                    <span class="text-sm text-gray-500 ml-2">14 Januari 2024</span>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Pengumuman</span>
+                    <span class="text-sm text-gray-500 ml-2">{{ $announcement->published_at ? $announcement->published_at->format('d F Y') : $announcement->created_at->format('d F Y') }}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Update Sistem Informasi Akademik</h3>
-                <p class="text-gray-700">Sistem informasi akademik telah diperbarui dengan fitur-fitur baru. Silakan login untuk melihat perubahan yang tersedia.</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $announcement->title }}</h3>
+                <p class="text-gray-700">{{ Str::limit(strip_tags($announcement->content), 200) }}</p>
             </div>
-            
+            @else
             <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg">
                 <div class="flex items-center mb-2">
-                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Penting</span>
-                    <span class="text-sm text-gray-500 ml-2">12 Januari 2024</span>
+                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Pengumuman</span>
+                    <span class="text-sm text-gray-500 ml-2">{{ $announcement->published_at ? $announcement->published_at->format('d F Y') : $announcement->created_at->format('d F Y') }}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Pembatasan Akses WiFi Kampus</h3>
-                <p class="text-gray-700">Mulai tanggal 15 Januari 2024, akses WiFi kampus akan dibatasi hanya untuk mahasiswa aktif. Pastikan status keaktifan Anda terupdate.</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $announcement->title }}</h3>
+                <p class="text-gray-700">{{ Str::limit(strip_tags($announcement->content), 200) }}</p>
             </div>
+            @endif
+            @endforeach
         </div>
-        
-        <div class="mt-8 text-center">
-            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Lihat Semua Pengumuman →</a>
+        @else
+        <div class="text-center py-12">
+            <p class="text-gray-500 text-lg">Belum ada pengumuman yang dipublikasikan.</p>
         </div>
+        @endif
     </div>
 </section>
 

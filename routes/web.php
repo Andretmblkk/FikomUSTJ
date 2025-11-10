@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage
@@ -23,9 +24,7 @@ Route::get('/academic', function () {
 })->name('academic');
 
 // News page
-Route::get('/news', function () {
-    return view('news');
-})->name('news');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
 
 // Services page
 Route::get('/services', function () {
