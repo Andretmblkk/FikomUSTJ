@@ -15,11 +15,11 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationLabel = 'Layanan';
+    protected static ?string $navigationLabel = 'Dokumen Penting';
 
-    protected static ?string $modelLabel = 'Layanan';
+    protected static ?string $modelLabel = 'Dokumen Penting';
 
-    protected static ?string $pluralModelLabel = 'Layanan';
+    protected static ?string $pluralModelLabel = 'Dokumen Penting';
 
     public static function form(Schema $schema): Schema
     {
@@ -36,11 +36,19 @@ class ServiceResource extends Resource
                 Forms\Components\Select::make('type')
                     ->label('Tipe')
                     ->options([
-                        'surat_online' => 'Surat Online',
-                        'formulir' => 'Formulir',
+                        'panduan' => 'Panduan',
+                        'template' => 'Template',
+                        'form' => 'Formulir',
+                        'jadwal' => 'Jadwal',
+                        'peraturan' => 'Peraturan',
                     ])
                     ->required()
-                    ->default('surat_online'),
+                    ->default('panduan'),
+                Forms\Components\TextInput::make('file_url')
+                    ->label('URL File/Download')
+                    ->url()
+                    ->maxLength(255)
+                    ->helperText('Link untuk download dokumen'),
                 Forms\Components\Toggle::make('is_active')
                     ->label('Aktif')
                     ->default(true),
@@ -59,10 +67,19 @@ class ServiceResource extends Resource
                     ->label('Tipe')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'surat_online' => 'info',
-                        'formulir' => 'success',
+                        'panduan' => 'info',
+                        'template' => 'success',
+                        'form' => 'warning',
+                        'jadwal' => 'danger',
+                        'peraturan' => 'primary',
                         default => 'gray',
                     }),
+                Tables\Columns\TextColumn::make('file_url')
+                    ->label('URL File')
+                    ->url(fn ($record) => $record->file_url)
+                    ->openUrlInNewTab()
+                    ->limit(30)
+                    ->toggleable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean(),
@@ -76,8 +93,11 @@ class ServiceResource extends Resource
                 Tables\Filters\SelectFilter::make('type')
                     ->label('Tipe')
                     ->options([
-                        'surat_online' => 'Surat Online',
-                        'formulir' => 'Formulir',
+                        'panduan' => 'Panduan',
+                        'template' => 'Template',
+                        'form' => 'Formulir',
+                        'jadwal' => 'Jadwal',
+                        'peraturan' => 'Peraturan',
                     ]),
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Status Aktif'),

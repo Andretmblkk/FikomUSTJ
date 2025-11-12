@@ -1,6 +1,6 @@
 # 🔄 Panduan Update Admin Panel di Laptop Lain
 
-Panduan ini untuk laptop yang **sudah pernah clone** project ini sebelumnya dan ingin **update** untuk mendapatkan fitur admin panel yang baru.
+Panduan ini untuk laptop yang **sudah pernah clone** project ini sebelumnya dan ingin **update** untuk mendapatkan fitur admin panel.
 
 ---
 
@@ -9,6 +9,7 @@ Panduan ini untuk laptop yang **sudah pernah clone** project ini sebelumnya dan 
 Buka terminal di folder project, lalu jalankan **4 perintah ini saja**:
 
 ```bash
+php artisan storage:link
 git pull origin main
 php artisan migrate
 php artisan db:seed

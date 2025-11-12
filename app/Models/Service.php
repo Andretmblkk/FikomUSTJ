@@ -10,6 +10,7 @@ class Service extends Model
         'title',
         'description',
         'type',
+        'file_url',
         'is_active',
     ];
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsController;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
 // Homepage
@@ -20,7 +21,10 @@ Route::get('/programs', function () {
 
 // Academic page
 Route::get('/academic', function () {
-    return view('academic');
+    $documents = Service::where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->get();
+    return view('academic', compact('documents'));
 })->name('academic');
 
 // News page

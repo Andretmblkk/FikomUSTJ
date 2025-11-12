@@ -213,34 +213,35 @@
             <div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-6">Dokumen Penting</h3>
                 <div class="space-y-4">
-                    <div class="bg-white border rounded-lg p-4 flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Panduan Penulisan Skripsi</h4>
-                            <p class="text-sm text-gray-600">Format dan struktur penulisan skripsi</p>
+                    @forelse($documents as $document)
+                        <div class="bg-white border rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <h4 class="font-semibold text-gray-900">{{ $document->title }}</h4>
+                                <p class="text-sm text-gray-600">{{ $document->description }}</p>
+                                @if($document->type)
+                                    <span class="inline-block mt-1 px-2 py-1 text-xs rounded 
+                                        @if($document->type == 'panduan') bg-blue-100 text-blue-800
+                                        @elseif($document->type == 'template') bg-green-100 text-green-800
+                                        @elseif($document->type == 'form') bg-yellow-100 text-yellow-800
+                                        @elseif($document->type == 'jadwal') bg-red-100 text-red-800
+                                        @elseif($document->type == 'peraturan') bg-purple-100 text-purple-800
+                                        @else bg-gray-100 text-gray-800
+                                        @endif">
+                                        {{ ucfirst($document->type) }}
+                                    </span>
+                                @endif
+                            </div>
+                            @if($document->file_url)
+                                <a href="{{ $document->file_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-medium ml-4">Download</a>
+                            @else
+                                <span class="text-gray-400 font-medium ml-4">Tidak tersedia</span>
+                            @endif
                         </div>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Download</a>
-                    </div>
-                    <div class="bg-white border rounded-lg p-4 flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Template Skripsi</h4>
-                            <p class="text-sm text-gray-600">Template Microsoft Word untuk skripsi</p>
+                    @empty
+                        <div class="bg-white border rounded-lg p-4 text-center text-gray-500">
+                            <p>Tidak ada dokumen tersedia saat ini.</p>
                         </div>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Download</a>
-                    </div>
-                    <div class="bg-white border rounded-lg p-4 flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Form Pengajuan Judul</h4>
-                            <p class="text-sm text-gray-600">Formulir untuk pengajuan judul skripsi</p>
-                        </div>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Download</a>
-                    </div>
-                    <div class="bg-white border rounded-lg p-4 flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Jadwal Sidang Skripsi</h4>
-                            <p class="text-sm text-gray-600">Jadwal sidang skripsi semester ini</p>
-                        </div>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Download</a>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
